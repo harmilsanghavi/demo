@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        table{
+            border: 2px solid green;
+            padding:1rem;
+            text-align: center;
+        }
+        td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <form >
+        <table>
+            <tr>
+                <td colspan="4">
+                    <input type="text" name="input" id="input">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p value="1" onclick="input.value += '1' ">1</p>
+                </td>
+                <td>
+                    <p value="2" onclick="input.value += '2' ">2</p>
+                </td>
+                <td>
+                    <p value="3" onclick="input.value += '3' ">3</p>
+                </td>
+                <td>
+                    <p value="+" onclick="input.value += '+' ">+</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p value="4" onclick="input.value += '4' ">4</p>
+                </td>
+                <td>
+                    <p value="5" onclick="input.value += '5' ">5</p>
+                </td>
+                <td>
+                    <p value="6" onclick="input.value += '6' ">6</p>
+                </td>
+                <td>
+                    <p value="-" onclick="input.value += '-' ">-</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p value="7" onclick="input.value += '7' ">7</p>
+                </td>
+                <td>
+                    <p value="8" onclick="input.value += '8' ">8</p>
+                </td>
+                <td>
+                    <p value="9" onclick="input.value += '9' ">9</p>
+                </td>
+                <td>
+                    <p value="*" onclick="input.value += '*' ">*</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p value="/" onclick="input.value += '/' ">/</p>
+                </td>
+                <td>
+                    <p value="0" onclick="input.value += '0' ">0</p>
+                </td>
+                <td>
+                    <p value="." onclick="input.value += '.' ">.</p>
+                </td>
+                <td>
+                    <p value="=" onclick="input.value =  eval(input.value).toFixed(2) ">=</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p onclick="input.value=' ' " id="clear">clear</p>
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+</body>
+</html>
