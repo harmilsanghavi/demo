@@ -1,0 +1,15 @@
+this job application folder cantains search listing insert 
+data are come from database to put in html using ejs
+data submitted means form submitted to node and data pass to database using express
+
+
+fetch api using ajax data was deleted bt soft deleted
+MULTIPLE DELETE IS done 
+
+pagination added with ajax
+
+combogenrate function means select box
+
+edit form
+
+new exercies with better optimization

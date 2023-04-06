@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+    <style>
+        a{
+            text-decoration: none;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>hello</h1>
+    <p>variable</p>
+    <form action="/login">
+        <input type="submit" value="back to main page">
+    </form>
+    <!-- <input id="search" type="text" name="search" placeholder="enter what you want to search">
+    <a id="se" href="">Go</a>
+    <script>
+        var value=document.getElementById("search").value;
+        var a=document.getElementById("se")
+        a.href="/search"+value;
+
+    </script> -->
+    <br>
+    <br>
+    <%if(order=='desc'){order='asc'}else{order='desc'}%>
+    <table border="1" style="width: 100%; text-align: center;">
+        <tr>
+            <td><a href="/page?no=1&target=id&current=<%=current%>&order=<%=order%>">id</a></td>
+            <td><a href="/page?no=1&target=fName&current=<%=current%>&order=<%=order%>">First name</a></td>
+            <td><a href="/page?no=1&target=lName&current=<%=current%>&order=<%=order%>">Last name</a></td>
+            <td><a href="/page?no=1&target=sNumber&current=<%=current%>&order=<%=order%>">number</a></td>
+            <td><a href="/page?no=1&target=sEmail&current=<%=current%>&order=<%=order%>">email</a></td>
+            <td><a href="/page?no=1&target=date_of_birth&current=<%=current%>&order=<%=order%>">date of birth</a></td>
+        </tr>
+    <% for(let i=0; i<data.length ; i++){ %>
+        
+        <tr>
+            <td><%= data[i].id %></td>
+            <td><%= data[i].fName %></td>
+            <td><%= data[i].lName %></td>
+            <td><%= data[i].sNumber %></td>
+            <td><%= data[i].sEmail %></td>
+            <% var date=new Date(data[i].date_of_birth) %>
+            <td><%= date.getDate()%>-<%= date.getMonth() %>-<%= date.getFullYear() %></td>
+        </tr>
+    <% } %>
+       <!-- <tr>
+           <td><a  href="/page?no=<%=pages[i]%>&target=<%=target%>&current=<%=current%>&order=asc">asending</a></td>
+           <td><a  href="/page?no=<%=pages[i]%>&target=<%=target%>&current=<%=current%>&order=desc">decending</a></td>
+       </tr> -->
+    </table>
+    <%if(order=='desc'){order='asc'}else{order='desc'}%>
+    <table border="1">
+    
+        <tr>
+            <% if(page != 1) {%>
+             <td><a href="/page?no=<%=page-1%>">previous</a></td>
+             <% } %>
+            </tr>
+        <tr>
+            <% 
+                 for(var i=0;i<pages.length;i++){
+                     if(pages[i] == page){
+             %>
+             <td><a style="background-color: lightblue; color: red;" href="#"><%=pages[i]%></a></td>
+             <%} else{ %>
+             <td><a  href="/page?no=<%=pages[i]%>&target=<%=target%>&current=<%=current%>&order=<%=order%>"><%=pages[i]%></a></td>
+             <%  } } %>
+             </tr>
+        <tr>
+            <% if(page != pages.length) {%>
+                 <td><a href="/page?no=<%=page + 1%>">Next</a></td>
+             <% } %>
+            </tr>
+    
+    </table>
+    </body>
+    <script>
+       var tag= document.getElementsByTagName("a")
+       
+    </script>
+</html>

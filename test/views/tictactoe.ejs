@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td:hover{background-color: lightpink;}
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="1"  onclick="click1(); click2(this);" ></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="2"  onclick="click1(); click2(this);"></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="3"  onclick="click1(); click2(this); " ></td>
+        </tr>
+        <tr>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="4"  onclick="click1(); click2(this);" ></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="5"  onclick="click1(); click2(this);" ></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="6"  onclick="click1(); click2(this);" ></td>
+        </tr>
+        <tr>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="7"  onclick="click1();  click2(this);" ></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="8"  onclick="click1();  click2(this);" ></td>
+            <td style="width: 100px; height: 100px;font-size: 30px; align-content: center;" id="9"  onclick="click1();  click2(this);" ></td>
+        </tr>
+    </table>
+    <p>this is show the Message who win</p>
+    <p id="demo"></p>
+    <p>Player x win Count :- </p><p id="demo1"></p>
+    <p>Player 0 win Count :- </p><p id="demo2"></p>
+    <p id="dem3"></p>
+    <form action="login">
+        <input type="submit" value="Back To Main Menu">
+    </form>
+
+    <script>
+        var hXCounter=0;
+        var hCounter=0;
+        var hTie=0;
+        var Hflag=0
+        function click2(harmil){
+            if(Hflag==0 && harmil.innerHTML==""){
+                harmil.innerHTML='x'
+                Hflag=1
+                return click1()
+            }else if(harmil.innerHTML==""){
+                harmil.innerHTML='0'
+                Hflag=0
+                return click1()
+            }
+        }
+        function click1(){
+            var harmil1=document.getElementById("1").innerText
+            var harmil2=document.getElementById("2").innerText
+            var harmil3=document.getElementById("3").innerText
+            var harmil4=document.getElementById("4").innerText
+            var harmil5=document.getElementById("5").innerText
+            var harmil6=document.getElementById("6").innerText
+            var harmil7=document.getElementById("7").innerText
+            var harmil8=document.getElementById("8").innerText
+            var harmil9=document.getElementById("9").innerText
+            
+            
+            if((harmil1=='x' && harmil2=='x' && harmil3=='x') || 
+            (harmil4=='x' && harmil5=='x' && harmil6=='x') ||
+            (harmil7=='x' && harmil8=='x' && harmil9=='x') ||
+            (harmil1=='x' && harmil4=='x' && harmil7=='x') ||
+            (harmil2=='x' && harmil5=='x' && harmil8=='x') ||
+            (harmil3=='x' && harmil6=='x' && harmil9=='x') ||
+            (harmil1=='x' && harmil5=='x' && harmil9=='x') ||
+            (harmil3=='x' && harmil5=='x' && harmil7=='x')){
+                document.getElementById("demo").innerHTML="player x win"
+                hXCounter++;
+                document.getElementById("demo1").innerHTML=hXCounter
+                return reset()
+            }
+            else if((harmil1=='0' && harmil2=='0' && harmil3=='0') || 
+            (harmil4=='0' && harmil5=='0' && harmil6=='0') ||
+            (harmil7=='0' && harmil8=='0' && harmil9=='0') ||
+            (harmil1=='0' && harmil4=='0' && harmil7=='0') ||
+            (harmil2=='0' && harmil5=='0' && harmil8=='0') ||
+            (harmil3=='0' && harmil6=='0' && harmil9=='0') ||
+            (harmil1=='0' && harmil5=='0' && harmil9=='0') ||
+            (harmil3=='0' && harmil5=='0' && harmil7=='0')){
+                document.getElementById("demo").innerHTML="player 0 win"
+                hCounter++;
+                document.getElementById("demo2").innerHTML=hCounter
+                return reset()
+            }
+            else if((harmil1=='x' || harmil1=='0') && (harmil2=='x' || harmil2=='0') &&
+            (harmil3=='x' || harmil3=='0') && (harmil4=='x' || harmil4=='0') &&
+            (harmil5=='x' || harmil5=='0') && (harmil6=='x' || harmil6=='0') &&
+            (harmil7=='x' || harmil7=='0') && (harmil8=='x' || harmil8=='0') &&
+            (harmil9=='x' || harmil9=='0')){
+                document.getElementById("demo").innerHTML="game is tie"
+                hTie++;
+                document.getElementById("demo3").innerHTML=hTie
+                return reset()
+            }
+        }
+        function reset(){
+            
+            //val=[]
+            document.getElementById("1").innerHTML=null;
+            document.getElementById("2").innerHTML=null;
+            document.getElementById("3").innerHTML=null;
+            document.getElementById("4").innerHTML=null;
+            document.getElementById("5").innerHTML=null;
+            document.getElementById("6").innerHTML=null;
+            document.getElementById("7").innerHTML=null;
+            document.getElementById("8").innerHTML=null;
+            document.getElementById("9").innerHTML=null;
+
+
+
+        }
+    </script>
+
+</body>
+</html>

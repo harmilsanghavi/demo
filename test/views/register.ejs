@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/demo.css">
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="content">
+                <div class="regis">
+                    <img src="/images/logo.svg" alt="">
+                    <h1>Welcome</h1>
+                    <table>
+                        <form action="/registerData" method="post" onsubmit="return validateEvent()">
+                            <tr>
+                                <td><label for="">Name</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="name" id="name"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="">Email</label></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="email" id="email" onfocusout="chechE(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><span id="em"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label for="">Password</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="password" id="password" onfocusout="checkP(this)"></td>
+
+                            </tr>
+                            <tr>
+                                <td><span id="pass"></span></td>
+                            </tr>
+                            <tr>
+                                <td><label for="">Confrom Password</label></td>
+                            </tr>
+
+                            <tr>
+                                <td><input type="text" name="cPassword" id="cPassword" onchange="compareC(this)"></td>
+                            </tr>
+                            <tr>
+                                <td><span id="pass2"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <td><input id="submit" type="submit" class="sub_btn" value="Register"
+                                        disabled></td>
+                                <!-- <p id="demo" class="sub_btn">Register</p> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="que">Have an account? <a href="/login">login</a></p>
+                                </td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+                <div class="bottom_log">
+                    <img src="/images/bottom-logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        getdata()
+        async function getdata() {
+            var data = await fetch(`getData`)
+            var data1 = await data.json()
+            console.log(data1)
+            return data1
+        }
+
+        async function chechE(e) {
+            var data = await getdata()
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|id="cPassword"}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].email == e.value || e.value == "") {
+                    //alert("please enrter another email")
+                    document.getElementById("em").style.color = "red"
+                    document.getElementById("em").innerHTML = "please enter another email"
+                    e.style.backgroundColor = "red"
+                    var btn = document.getElementById("submit")
+                    btn.disabled = true
+                    break;
+                } else if (e.value.match(validRegex)) {
+                    var btn = document.getElementById("submit")
+                    var btn = document.getElementById("submit")
+                    document.getElementById("em").style.color = "red"
+                    document.getElementById("em").innerHTML = ""
+                    // btn.disabled = false
+                    btn.disabled = false
+                    break;
+                } else {
+                    alert("Invalid email address!");
+                    break;
+                }
+            }
+            console.log(e.value)
+
+
+        }
+        function checkP(e) {
+            var passw = /^[A-Za-z]\w{4}$/;
+            console.log("welcome",e.value)
+            if (e.value.match(passw)) {
+                document.getElementById("pass").innerHTML = ""
+                document.getElementById(e.id).style.backgroundColor = "white"
+            }
+            else {
+                console.log(e.id)
+                document.getElementById(e.id).style.backgroundColor = "red"
+                document.getElementById("pass").innerHTML = "invalid password"
+                document.getElementById("pass").style.color = "red"
+            }
+        }
+        // function compareC(e) {
+        //     var p = document.getElementById("password").value
+        //     if (e.value == p || e.length == p.length) {
+        //         document.getElementById("pass2").innerHTML = ""
+        //         document.getElementById(e.id).style.backgroundColor = "white"
+        //     } else {
+        //         document.getElementById(e.id).style.backgroundColor = "red"
+        //         document.getElementById("pass2").innerHTML = "invalid password"
+        //         document.getElementById("pass2").style.color = "red"
+        //     }
+        //     if (e.value > p) {
+        //         document.getElementById(e.id).style.backgroundColor = "red"
+        //         document.getElementById("pass2").innerHTML = "invalid password"
+        //         document.getElementById("pass2").style.color = "red"
+        //     } if (e.value < p) {
+        //         document.getElementById(e.id).style.backgroundColor = "red"
+        //         document.getElementById("pass2").innerHTML = "invalid password"
+        //         document.getElementById("pass2").style.color = "red"
+        //     }
+        // }
+        function validateEvent() {
+            var p = document.getElementById("password").value
+            var c = document.getElementById("cPassword").value
+            var n = document.getElementById("name").value
+            var e = document.getElementById("email").value
+            // console.log(p)
+            // console.log(c)
+            // console.log(n)
+            // console.log(e)
+            // return false
+            if (n == '') {
+                alert("enter name")
+                return false
+            }
+            if (p == '') {
+                alert("enter password")
+                return false
+            }
+            if (p == c) {
+                document.getElementById("pass").innerHTML = ""
+                document.getElementById("pass2").style.backgroundColor = "white"
+            }else{
+                document.getElementById("cPassword").style.backgroundColor = "red"
+                document.getElementById("pass2").innerHTML = "invalid password"
+                document.getElementById("pass2").style.color = "red"
+                return false
+            }
+            if (c == '') {
+                alert("re-enter password")
+                return false
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Enter no of filed :- <input type="text" name="number" id="number">
+    <p id="click" onclick="clickMe()" style="cursor: pointer;">click me</p>
+    <table id="tbl">
+
+    </table>
+    <p onclick="genrateTable()">click</p>
+    <script>
+        function clickMe() {
+            console.log("clicked")
+            var tbl = document.getElementById("tbl")
+            var num = document.getElementById("number").value;
+            num *= 2
+            var tr = document.createElement("tr");
+            for (var i = 0; i < num; i++) {
+                var td = document.createElement("td")
+                if (i % 2 == 0) {
+                    var lbl = document.createElement("label");
+                    lbl.innerHTML = "Enter" + i + "column Name"
+                    td.appendChild(lbl)
+                } else {
+                    var input = document.createElement("input");
+                    input.name = "filed" + i
+                    input.className="demo"
+                    td.appendChild(input)
+                }
+                tr.appendChild(td)
+            }
+            tbl.appendChild(tr)
+        }
+        function genrateTable(){
+            console.log("inner")
+            console.log(document.getElementsByClassName("demo").length)
+            console.log(document.getElementById("filed"+1).value)
+        }
+
+       
+    </script>
+</body>
+
+</html>

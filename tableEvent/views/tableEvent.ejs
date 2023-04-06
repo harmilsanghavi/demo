@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <a href="http://localhost:8014/login">Back To Home</a>
+    <form action="/save" method="post">
+    <table border="2" id="tbl">
+        <tr>
+            <td>id</td>
+            <td>first name</td>
+            <td>last name</td>
+            <td>number</td>
+            <td>pincode</td>
+            <td>address</td>
+            <td>save</td>
+        </tr>
+    <% for(var i=0;i<data.length;i++){ 
+        var id=data[i].id
+        var f_name=data[i].f_name
+        var l_name=data[i].l_name
+        var number=data[i].number
+        var pincode=data[i].pincode
+        var address=data[i].address   
+    %>
+        <tr>
+            <td><input type="text" name="id" value="<%=data[i].id%>"></td>
+            <td><input type="text" name="f_name" id="f_name<%=data[i].id%>"  value="<%=data[i].f_name%>"></td>
+            <td><input type="text" name="l_name" id="l_name<%=data[i].id%>"  value="<%=data[i].l_name%>"></td>
+            <td><input type="text" name="number" id="number<%=data[i].id%>"  value="<%=data[i].number%>"></td>
+            <td><input type="text" name="pincode" id="pincode<%=data[i].id%>" value="<%=data[i].pincode%>"></td>
+            <td><input type="text" name="address" id="address<%=data[i].id%>" value="<%=data[i].address%>"></td>
+            <td><p id="<%=data[i].id%>" onclick="editFunction(this)">click Me</p></td>
+        </tr>
+        
+    <% } %>
+        <tr>
+            <td><input type="submit" name="saveAll"  value="save All" id=""></td>
+            <td><p style="cursor: pointer;" onclick="addFunction()">Add New record</p></td>
+        </tr>
+    </table>
+    
+    </form>
+    <script>
+
+        function editFunction(id){
+            //console.log(id.id)
+            var id2=id.id
+            console.log(id2)
+            var f_name=document.getElementById(`f_name${id2}`).value
+            var l_name=document.getElementById(`l_name${id2}`).value
+            var number=document.getElementById(`number${id2}`).value
+            var pincode=document.getElementById(`pincode${id2}`).value
+            var address=document.getElementById(`address${id2}`).value
+            console.log(f_name)
+
+            fetch(`/update?id=${id2}&f_name=${f_name}&l_name=${l_name}&number=${number}&pincode=${pincode}&address=${address}`)
+        }
+        function addFunction(){
+            var tbl=document.getElementById("tbl")
+            var tr=document.createElement("tr")
+            tr.innerHTML=`<tr>
+                    <td><input type="text" name="id" id="id"></td>
+                    <td><input type="text" name="f_name" id="f_name"></td>
+                    <td><input type="text" name="l_name" id="l_name"></td>
+                    <td><input type="text" name="number" id="number"></td>
+                    <td><input type="text" name="pincode" id="pincode"></td>
+                    <td><input type="text" name="address" id="address"></td>
+                    <td>
+                        <p onclick="addRow()">click Me</p>    
+                    </td>
+                </tr>`
+            tbl.appendChild(tr)
+        }
+        function addRow(){
+            var f_name=document.getElementById("f_name").value
+            var l_name=document.getElementById("l_name").value
+            var number=document.getElementById("number").value
+            var pincode=document.getElementById("pincode").value
+            var address=document.getElementById("address").value
+
+            fetch(`/add_record?f_name=${f_name}&l_name=${l_name}&number=${number}&pincode=${pincode}&address=${address}`)
+        }
+    </script>
+</body>
+</html>

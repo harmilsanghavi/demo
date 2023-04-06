@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 2px solid blue;
+            padding: 10px;
+        }
+
+        p {
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="2">
+        <form action="login">
+            <tr>
+                <td><input type="submit" value="Back To Main Menu"></td>
+            </tr>
+        </form>
+    </table>
+    <table id="table1" style="height: 500px; width: 500px;">
+        <tr>
+            <td style="background-color: red;" onclick="submit1()"></td>
+
+        </tr>
+
+    </table>
+    <table>
+        <tr>
+            <td>
+                <h2>Count</h2>
+            </td>
+            <td>
+                <h2>timer</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p id="demo"></p>
+            </td>
+            <td>
+                <p id="timer"></p>
+            </td>
+        </tr>
+    </table>
+    <script>
+
+        var harmilColorRandom = ['red', 'blue', 'green', 'aqua', 'black', 'violet', 'brown', 'chocolate', 'pink']
+        var harmiln = 1, harmilm = 1
+        var harmilc = 0
+
+        start(60)
+        function start(harmil) {
+            let count = harmil
+            const interval1 = setInterval(() => {
+                count--;
+                document.getElementById("timer").innerHTML = count
+                if (count <= 0) {
+                    clearInterval(interval1)
+                    confirm("Your time is out Press OK Button to start new game")
+                    window.location.reload()
+                }
+            }, 1000)
+        }
+
+        function submit1() {
+
+            //document.getElementById("id1").style.display="none"
+            var haarmilRandomCol = Math.floor(Math.random() * harmiln) + 1;
+            var haarmilRandomrow = Math.floor(Math.random() * harmilm) + 1;
+            var harmils = ""
+            for (var i = 0; i <= harmiln; i++) {
+                harmils += "<tr>"
+                for (var j = 0; j <= harmilm; j++) {
+
+                    if (haarmilRandomCol == j && haarmilRandomrow == i) {
+                        harmilc++;
+                        harmils += "<td onclick=submit1()  style='background-color:" + harmilColorRandom[haarmilRandomrow] + "; opacity:20%'></td>"
+                    }
+                    else {
+                        harmils += "<td  style='background-color:" + harmilColorRandom[haarmilRandomrow] + ";'> </td>"
+                    }
+                }
+                harmils += "</tr>"
+            }
+            document.getElementById("demo").innerHTML = harmilc;
+            document.getElementById("table1").innerHTML = harmils
+            if (harmiln < 8) {
+                harmiln++;
+                harmilm++;
+            }
+            else {
+                harmiln = 8;
+                harmilm = 8;
+            }
+        }
+    </script>
+</body>
+
+</html>

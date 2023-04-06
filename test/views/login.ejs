@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/demo.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="regis">
+                <img src="/images/logo.svg" alt="">
+                <h1>Welcome</h1>
+                <table class="miniContainer">
+                    <form action="/loginData" method="post" onsubmit="return check()">
+                        <tr>
+                            <td><label for="">Email</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="email" id="email" onchange="checkE()"></td>
+                        </tr>
+                        <tr>
+                            <td><span id="ema"></span></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">Password</label></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><input type="text" name="password" id="password"></td>
+                        </tr>
+                        <tr>
+                            <td><span id="pass"></span></td>
+                        </tr>
+                        <tr>
+                            <td><input class="sub_btn" type="submit" value="submit"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="que">Haven't an account? <a href="/">register</a></p>
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+            <div class="bottom_log">
+                <img src="/images/bottom-logo.png" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        getdata2()
+        async function getdata2() {
+            var user=document.getElementById("email").value
+            var password=document.getElementById("password").value
+            var data = await fetch(`/getData2?user=${user}&pass=${password}`)
+            var data1 = await data.json()
+            console.log(data1)
+            return data1
+        }
+        async function checkE(){
+            //var email= document.getElementById("email").value
+            var data=await getdata2()
+            console.log(data)
+            if(data==''){
+                alert("enter valide email")
+            }
+        }
+        function check(){
+            //var data = await getdata2()
+            var ema=document.getElementById("ema")
+            var email= document.getElementById("email")
+            var pass=document.getElementById("pass")
+            var password=document.getElementById("password")
+            if(email.value==''){
+                ema.innerHTML="enter email"
+                ema.style.color="red"
+                email.style.backgroundColor="red"
+                alert("enter email")
+                return false
+            }
+            else if(password.value==''){
+                pass.innerHTML="enter password"
+                pass.style.color="red"
+                passwrod.style.backgroundColor="red"
+                alert("enter pass")
+                return false
+            }
+            // if(data == ''){
+            //     ema.innerHTML="email doesn't match"
+            //     email.style.backgroundColor="red"
+            //     pass.innerHTML="password doesn't match"
+            //     passwrod.style.backgroundColor="red"
+            //     alert("email or password doesn't match")
+            //     return false
+            // }
+        }
+    </script>
+</body>
+
+</html>

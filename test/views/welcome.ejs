@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/demo.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="regis">
+                <img src="/images/logo.svg" alt="">
+                <table>
+                    <form action="/logout" method="post">
+                        <tr>
+                            <td><h1>Welcome</h1><h1><%=tokenData.name%></h1> <input type="text" name="name" id="name" value="<%=tokenData.name%>"></td>
+                            <td><input type="hidden" name="id" id="id" value="<%=tokenData.id%>"></td>
+                        </tr>
+                        <tr>
+                            <td><p style="color: white;" id="tic">Tic Tac Toe</p></td>
+                            <td><p style="color: white;" id="cube">Ku Ku Cube</p></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="logout"></td>
+                            <td><p class="sub_btn" id="demo">Chnage Name</p></td>
+                        </tr>
+                    </form>
+                </table>
+                <form action="/page">
+                    <input type="submit" value="page">
+                </form>
+                <form action="/page2">
+                    <input type="submit" value="search">
+                </form>
+                <a href="http://localhost:8007/"><h1>Job</h1></a>
+                <a href="http://localhost:8114/"><h1>Table Event</h1></a>
+            </div>
+            <div class="bottom_log">
+                <img src="/images/bottom-logo.png" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("demo").addEventListener("click", () => {
+            var name = document.getElementById("name").value
+            var id = document.getElementById("id").value
+            console.log(name)
+            console.log(id)
+            fetch(`chnage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id, name
+                })
+            }).then(res => res.json())
+                .then(data => {
+                    document.getElementById("name").innerHTML = data
+                })
+        })
+
+        document.getElementById("tic").addEventListener("click",()=>{
+            fetch(`tictactoe`)
+            location.assign('/game1')
+        })
+
+        document.getElementById("cube").addEventListener("click",()=>{
+            fetch(`kukucube`)
+            location.assign('/game2')
+        })
+    </script>
+</body>
+
+</html>

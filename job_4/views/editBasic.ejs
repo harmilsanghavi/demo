@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>basic Detail</h1>
+    <a href="http://localhost:8014/login">Back To Home</a>
+    <form action="/saveBasic" method="post">
+        <table id="tbl">
+            <tr>
+                <td><input type="hidden" name="id" value="<%=data[0].id%>"></td>
+            </tr>
+            <tr>
+                <td>first name</td>
+                <td><input type="text" name="f_name" value="<%=data[0].f_name%>"></td>
+                <td>address1</td>
+                <td><input type="text" name="address1" value="<%=data[0].address1%>"></td>
+            </tr>
+            <tr>
+                <td>last name</td>
+                <td><input type="text" name="l_name" value="<%=data[0].l_name%>"></td>
+                <td>address2</td>
+                <td><input type="text" name="address2" value="<%=data[0].address2%>"></td>
+            </tr>
+            <tr>
+                <td>designation</td>
+                <td><input type="text" name="designation" value="<%=data[0].designation%>"></td>
+                <td>email</td>
+                <td><input type="text" name="email" value="<%=data[0].email%>"></td>
+            </tr>
+            <tr>
+                <td>number</td>
+                <td><input type="text" name="s_number" value="<%=data[0].s_number%>"></td>
+                <td>city</td>
+                <td>
+                    <%-string1[2]%>
+                </td>
+            </tr>
+            <tr>
+                <td>state</td>
+                <td>
+                    <%-string1[1]%>
+                </td>
+                <td>gender</td>
+                <td>
+                    <% if(data[0].gender=='male'){ %> 
+                            <input type="radio" name="gender" value="<%=data[0].gender%>" checked><%=data[0].gender%>
+                            <input type="radio" name="gender" value="female">female
+                            <input type="radio" name="gender" value="other">other
+                    <%  }else if(data[0].gender=='female'){  %>
+                        <input type="radio" name="gender" value="<%=data[0].gender%>" checked><%=data[0].gender%>
+                        <input type="radio" name="gender" value="male">male
+                        <input type="radio" name="gender" value="other">other
+                    <%  }else{ %>
+                        <input type="radio" name="gender" value="<%=data[0].gender%>" checked><%=data[0].gender%>
+                        <input type="radio" name="gender" value="female">female
+                        <input type="radio" name="gender" value="male">male
+                    <%  } %>
+                </td>
+
+            </tr>
+            <tr>
+                <td>zipcode</td>
+                <td><input type="text" name="zipcode" value="<%=data[0].zipcode%>"></td>
+                <td>relationship</td>
+                <td>
+                    <%-string1[0]%>
+                    <!-- <select name="relationship" id="relationship">
+                        <option value="<%=data[0].relationship%>"><%=data[0].relationship%></option>
+                    </select> -->
+                </td>
+            </tr>
+            <tr>
+                <td>date of birth</td>
+                <%
+                    var date=new Date(data[0].date_of_birth)
+                    var day=''+date.getDate()
+                    var month='' +date.getMonth()
+                    var year=date.getFullYear()
+
+                    if (month.length < 2) 
+                        month = '0' + month;
+                    if (day.length < 2) 
+                        day = '0' + day;
+                %>
+                <td><input type="date" name="date_of_birth" value="<%=data[0].date_of_birth%>"><%=day%>-<%=month%>-<%=year%></td>
+                
+            </tr>
+            
+      
+        <br><br>
+       
+        
+            <tr>
+                <td><h1>eduction</h1></td>
+                <td><input type="hidden" name="length" value="<%=dataEduc.length%>"></td>
+                
+            </tr>
+            <% for(var i=0;i<dataEduc.length;i++){ %>
+               
+            <tr>
+                <td><input type="text" name="eid" value="<%=dataEduc[i].id%>"></td>
+                
+                <td>course Name</td>
+                <td>
+                    <select name="courseName" id="">
+                        <option value="<%=dataEduc[i].cource_name%>"><%=dataEduc[i].cource_name%></option>
+                    </select>
+                </td>
+                <td>university</td>
+                <td><input type="text" name="buname" value="<%=dataEduc[i].univercity%>"></td>
+                <td>passing_year</td>
+                <td><input type="text" name="pyear" value="<%=dataEduc[i].passing_year%>"></td>
+                <td>percentage</td>
+                <td><input type="text" name="percentage" value="<%=dataEduc[i].percentage%>"></td>
+            </tr>
+            <% } %>
+            <tr>
+                <td><p id="addEduc">ADD</p></td>
+            </tr>
+            <tr>
+                <td><h1>work</h1></td>
+                <td><input type="hidden" name="workLength" value="<%=work.length%>"></td>
+            </tr>
+            <% for(var i=0;i<work.length;i++){ %>
+            <tr>
+                <td><input type="hidden" name="work_id" value="<%=work[i].id%>"></td>
+            </tr>
+            <%
+            var date2=new Date(work[i].start_date)
+            var day2=''+date2.getDate()
+            var month2='' +date2.getMonth()
+            var year2=date2.getFullYear()
+
+            if (month2.length < 2) 
+                month2 = '0' + month2;
+            if (day2.length < 2) 
+                day2 = '0' + day2;
+
+                var date3=new Date(work[i].start_date)
+                var day3=''+date3.getDate()
+                var month3='' +date3.getMonth()
+                var year3=date3.getFullYear()
+    
+                if (month3.length < 2) 
+                    month3 = '0' + month3;
+                if (day3.length < 2) 
+                    day3 = '0' + day3;
+        %>
+            <tr>
+                <td>Company Name</td>
+                <td><input type="text" name="cName" value="<%=work[i].company_name%>"></td>
+                <td>Designation</td>
+                <td><input type="text" name="designation1" value="<%=work[i].designation%>"></td>
+                <td>start date</td>
+                <td><input type="date" name="startDate" value="<%=work[i].start_date%>"><%=day2%>-<%=month2%>-<%=year2%></td>
+                <td>End date</td>
+                <td><input type="date" name="endDate" value="<%=work[i].end_date%>"><%=day3%>-<%=month3%>-<%=year3%></td>
+            </tr>
+            <% } %>
+            <tr>
+                <td><p id="addWork">Add Work</p></td>
+            </tr>
+            <tr>
+                <td><h1>Refrences</h1></td>
+                <td><input type="hidden" name="refrenceLength" value="<%=refrence.length%>"></td>
+            </tr>
+            <% for(var i=0;i<refrence.length;i++){ %>
+                <tr>
+                    <td><input type="hidden" name="refrence_id" value="<%=refrence[i].id%>"></td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td ><input type="text" name="name" value="<%=refrence[i].name%>"></td>
+                    <td>Number</td>
+                    <td ><input type="text" name="number" value="<%=refrence[i].r_number%>"></td>
+                    <td>relation</td>
+                    <td ><input type="text" name="relation" value="<%=refrence[i].relation%>"></td>
+                </tr>
+            <% } %>
+            <tr>
+                <td><h1>Prefrences</h1></td>
+                <td><input type="text" name="prefrence_id" value="<%=prefrence[0].id%>"></td>
+            </tr>
+            <tr>
+                <td>location</td>
+                <td> <%-string1[2]%></td>
+                <td>notice period</td>
+                <td><input type="text" name="notice_period" value="<%=prefrence[0].notice_period%>"></td>
+                <td>expedted ctc</td>
+                <td><input type="text" name="expected" value="<%=prefrence[0].expected_ctc%>"></td>
+                <td>current</td>
+                <td><input type="text" name="current" value="<%=prefrence[0].current_ctc%>"></td>
+            </tr>
+            <tr>
+                <td>department</td>
+                <td><%-string1[3]%></td>
+            </tr>
+            <tr>
+                <td><h1>language</h1></td>
+            </tr>
+            <!-- <% for(var i=0;i<language.length;i++){ %>
+            <tr>
+                <td><input type="checkbox" name="language" value="<%=language[i].language_name%>"><%=language[i].language_name%></td>
+                <td><input type="checkbox" name="read1" value="<%=language[i].read1%>"><%=language[i].read1%></td>
+                <td><input type="checkbox" name="write1" value="<%=language[i].write1%>"><%=language[i].write1%></td>
+                <td><input type="checkbox" name="speak1" value="<%=language[i].speak1%>"><%=language[i].speak1%></td>
+            </tr>
+           
+            <% } %> -->
+            <% for(var i=0;i<language.length;i++){ %>
+                <td><input type="hidden" name="language_id" value="<%=language[i].id%>"></td>
+            <% } %>
+            <tr>
+                <td><%- string1[4]%></td>
+            </tr>   
+            <tr>
+                <td><h1>technology</h1></td>
+                <td><%- string1[5]%></td>
+            </tr>
+            <tr>
+                <td><input type="submit"></td>
+            </tr>
+       
+        </table>
+    </form>
+    <script>
+        document.getElementById("addEduc").addEventListener("click",()=>{
+        // function add1(){
+            console.log("click")
+            var array1=['course name','passing year','board or university','percentage']
+            var tbl=document.getElementById("tbl");
+            var ar=['10th','12th','bsc','diploma']
+            var d=0;
+            for(var i=0;i<1;i++){
+                var tr=document.createElement("tr")
+                for(j=0;j<8;j++){
+                    var td=document.createElement("td")
+                    if(j == 3 || j == 5 || j == 7){
+                        var input = document.createElement("input");
+                        if(j==3){
+                            input.name="pyear"
+                        }
+                        if(j==5){
+                            input.name="buname"
+                        }
+                        if(j==7){
+                            input.name="percentage"
+                        }
+                        input.text = "text";
+                        //input.name = array1[j];
+                        //input.placeholder = array1[c];
+                        
+                        // td.appendChild(label);
+                        td.appendChild(input);
+                    }
+                    else if(j==1){
+                        var select=document.createElement("select")
+                        select.name="courseName"
+                        for(var m=0;m<4;m++){
+                            var option=document.createElement("option")
+                            option.value=ar[m]
+                            option.text=ar[m]
+                            select.appendChild(option)
+                        }
+                        td.appendChild(select)
+                    }
+                    else if(j==0 || j==2 || j==4 || j==6){
+                        
+                        var label1 = document.createElement("label");
+                        label1.innerHTML = array1[d];
+                        d++;
+                        td.appendChild(label1);
+                    }
+                    
+                    tr.appendChild(td)
+                }
+                tbl.appendChild(tr)
+            }
+        })
+
+        //work
+        document.getElementById("addWork").addEventListener("click",()=>{
+        //function add(){
+            var c=2;
+            var d=0;
+            var array3=['cName','designation1','startDate','endDate']
+            var tbl3=document.getElementById("tbl");
+            for(var i=0;i<1;i++){
+                var tr=document.createElement("tr")
+                for(j=0;j<8;j++){
+                    var td=document.createElement("td")
+                    if( j == 1 || j == 3){
+                        var input = document.createElement("input");
+                        input.text = "text";
+                        if(j==1){
+                            input.name="cName"
+                        }
+                        if(j==3){
+                            input.name="designation1"
+                        }
+                        //input.placeholder = array3[i];
+                        // td.appendChild(label);
+                        td.appendChild(input);
+                    }
+                    else if( j == 5 || j == 7){
+                        var input = document.createElement("input");
+                        input.type = "date";
+                        //input.name = array3[c];
+                        if(j==5){
+                            input.name="startDate"
+                        }
+                        if(j==7){
+                            input.name="endDate"
+                        }
+                        c++;
+                        td.appendChild(input);
+                    }
+                    else if ( j == 0 || j == 2 || j == 4||j == 6) {
+                        var label1 = document.createElement("label");
+                        label1.innerHTML = array3[d];
+                        d++;
+                        td.appendChild(label1);
+                    }
+                    tr.appendChild(td)
+                }
+                tbl3.appendChild(tr)
+            }
+        })
+
+    </script>
+</body>
+</html>

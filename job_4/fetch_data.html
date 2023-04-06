@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+        <select name="state" id="state-dropdown">
+            
+        </select>
+        <p id="demo"></p>
+    <script>
+    getData()
+    async function getData(){
+        const response1= await fetch('http://localhost:8003/fetch',{
+            headers : {
+                Accept: 'application.json',
+                'Content-Type' : 'application/json'
+            }
+        })
+        console.log(response1)
+        const data=await response1.json();
+        console.log(data)
+        length=data.state_name.length;
+        console.log(length)
+        document.getElementById("demo").innerHTML=length
+        // var select=document.getElementById("state")
+        // var temp=""
+        // for(var i=0;i<length;i++){
+        //     temp+="<option value='"+data.id[i]+"'>"+data.state_name[i]+"</option>"
+        // }
+        // select.innerHTML=temp
+    }
+    </script>
+</body>
+</html>

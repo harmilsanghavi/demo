@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="http://localhost:8014/login">Back To Home</a>
+    <form action="/search" method="get">
+        <input id="search" type="text" name="search" placeholder="enter what you want to search">
+        <select name="multi" id="">
+            <option value="and">AND</option>
+            <option value="or">OR</option>
+        </select>
+        <input type="submit" value="Go">
+    </form>
+
+    <br><br>
+    <table border="2">
+        <tr>
+            <td>^</td>
+            <td>first Name</td>
+        </tr>
+        <tr>
+            <td>~</td>
+            <td>last Name</td>
+        </tr>
+        <tr>
+            <td>$</td>
+            <td>number</td>
+        </tr>
+        <tr>
+            <td>!</td>
+            <td>email</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>city</td>
+        </tr>
+    </table><br><br>
+    <table border="2" id="tbl">
+
+        <tr>
+            <td>delete checkbox</td>
+            <td>Id</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Designation</td>
+            <td>address1</td>
+            <td>address2</td>
+            <td>email</td>
+            <td>number</td>
+            <td>city</td>
+            <td>Gender</td>
+            <td>zipcode</td>
+            <td>state</td>
+            <td>date of birth</td>
+            <td>delete One</td>
+            <td>Update</td>
+        </tr>
+        <% for(var i=0;i<data.length;i++){ %>
+        <tr id="<%=data[i].id%>">
+            <td>
+                <input type="checkbox" class="checkBox" name="multiple" id="multi" value="<%=data[i].id%>">
+            </td>
+            <td style="width: 50px;">
+                <%=data[i].id%>
+            </td>
+            <td>
+                <%=data[i].f_name%>
+            </td>
+            <td>
+                <%=data[i].l_name%>
+            </td>
+            <td>
+                <%=data[i].designation%>
+            </td>
+            <td>
+                <%=data[i].address1%>
+            </td>
+            <td>
+                <%=data[i].address2%>
+            </td>
+            <td>
+                <%=data[i].email%>
+            </td>
+            <td>
+                <%=data[i].s_number%>
+            </td>
+            <td>
+                <%=data[i].city%>
+            </td>
+            <td>
+                <%=data[i].gender%>
+            </td>
+            <td>
+                <%=data[i].zipcode%>
+            </td>
+            <td>
+                <%=data[i].state%>
+            </td>
+            <!-- <td>
+                    <%=data[i].current_time_date%>
+                </td> -->
+            <% var date=new Date(data[i].date_of_birth) %>
+                <td>
+                    <%= date.getDate()%>-<%= date.getMonth() %>-<%= date.getFullYear() %>
+                </td>
+                <% var id=data[i].id %>
+                    <td>
+                        <p id="<%=data[i].id%>" style="cursor: pointer;" onclick="deleteOne(id)">Delete</p>
+                    </td>
+                    <!-- <td>
+                        <p id="<%=data[i].id%>" style="cursor: pointer;" onclick="updateOne(id)">edit</p>
+                    </td> -->
+                    <td>
+                        <a href="editBasic?id=<%=data[i].id%>">update</a>
+                    </td>
+        </tr>
+
+        <% } %>
+
+    </table>
+    <p id="deletemulti">Delete Multiple</p>
+    <script>
+        var checkedData = [];
+        document.getElementById("deletemulti").addEventListener("click", () => {
+            
+            var checkedIds = document.getElementsByClassName("checkBox");
+            //console.log(checkedIds)
+            for (let i = 0; i < checkedIds.length; i++) {
+                if (checkedIds[i].checked) {
+                    checkedData.push(checkedIds[i].value);
+                }
+            }
+            const shouldDelete = confirm(`Are you sure you want to delete rows with the following IDs: ${checkedData.join(', ')}?`);
+            if (!shouldDelete) { return; }
+            checkedData.forEach(id => {
+                document.getElementById(id).style.display = "none";
+            });
+            const response = fetch(`/multi?cd_id=${checkedData}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    checkedData
+                })
+            }).then(res => res.json())
+                .then(data => {
+                    if (data) {
+                        alert("Deleted successfully!");
+                    }
+                })
+        })
+        function deleteOne(id) {
+            var text = ""
+            console.log(id)
+            if (confirm("Press a button!") == true) {
+                fetch(`/delete?id=${id}`)
+                document.getElementById(id).style.display = "none"
+
+            } else {
+                alert("you cancel the delete");
+            }
+        }
+
+        // function updateOne(id) {
+        //     var text = ""
+        //     console.log(id)
+        //     if (confirm("Press a button!") == true) {
+        //         fetch(`http://localhost:8004/update?id=${id}`)
+        //         //window.location="editBasic.ejs"
+        //         //document.getElementById(id).style.display = "none"
+
+        //     } else {
+        //         alert("you cancel the delete");
+        //     }
+        // }
+
+    </script>
+    <table border="1" style="width: 150px;">
+        
+
+            <tr>
+                <% 
+                     for(var i=0;i<pages.length;i++){
+                         if(pages[i] == pag){
+                 %>
+                 <!-- <a style="background-color: lightblue; color: red;" href="#"><%=pages[i]%></a> -->
+                 <td><p style="background-color: lightblue; color: red; cursor: pointer;" id="<%=pages[i]%>" onclick="pagination(this)"><%=pages[i]%></p></td>
+                 <%} else{ %>
+                 <!-- <td><a  href="/list?no=<%=pages[i]%>&ajax=true"><%=pages[i]%></a></td> -->
+                 <td><p style="background-color: lightblue; color: red; cursor: pointer;" id="<%=pages[i]%>" onclick="pagination(this)"><%=pages[i]%></p></td>
+                 <%  } } %>
+                 </tr>
+
+        </table>
+        <script>
+            function pagination(p){
+                console.log("demo")
+                var id=p.id
+                var ajax='true'
+                fetch(`/list?no=${id}&ajax=${ajax}`)
+                .then((res)=>res.json())
+                .then((data=>{
+                    console.log(data)
+                    var tbl=document.getElementById("tbl")
+                    temp=""
+                    temp+="<tr>";
+                    temp+="<td>delete checkbox</td>"
+                    temp+="<td>Id</td>"
+                    temp+="<td>First Name</td>"
+                    temp+="<td>Last Name</td>"
+                    temp+="<td>Designation</td>"
+                    temp+="<td>address1</td>"
+                    temp+="<td>address2</td>"
+                    temp+="<td>email</td>"
+                    temp+="<td>number</td>"
+                    temp+="<td>city</td>"
+                    temp+="<td>Gender</td>"
+                    temp+="<td>zipcode</td>"
+                    temp+="<td>state</td>"
+                    temp+="<td>date of birth</td>"
+                    temp+="<td>delete One</td>"
+                    temp+="<td>update One</td>"
+                    temp+="</tr>"
+                    for(var i=0;i<data.length;i++){
+                        temp+="<tr id="+data[i].id+">"
+                        temp+="<td><input type=checkbox class=checkBox name=multiple id=multi value="+data[i].id+"></td>"
+                        temp+="<td>"+data[i].id+"</td>"
+                        temp+="<td>"+data[i].f_name+"</td>"
+                        temp+="<td>"+data[i].l_name+"</td>"
+                        temp+="<td>"+data[i].designation+"</td>"
+                        temp+="<td>"+data[i].address1+"</td>"
+                        temp+="<td>"+data[i].address2+"</td>"
+                        temp+="<td>"+data[i].email+"</td>"
+                        temp+="<td>"+data[i].s_number+"</td>"
+                        temp+="<td>"+data[i].city+"</td>"
+                        temp+="<td>"+data[i].gender+"</td>"
+                        temp+="<td>"+data[i].zipcode+"</td>"
+                        temp+="<td>"+data[i].state+"</td>"
+                        var date=new Date(data[i].date_of_birth)
+                        temp+="<td>"+date.getDate()+"-"+ date.getMonth()+"-"+ date.getFullYear()+"</td>"
+                        temp+="<td><p id="+data[i].id+" style=cursor: pointer; onclick=deleteOne("+data[i].id+")>Delete</p></td>"
+                        temp+="<td><a href=editBasic?id="+data[i].id+">update</a></td>"
+                    }
+                    tbl.innerHTML=temp;
+                }))
+            }
+        </script>
+</body>
+
+</html>

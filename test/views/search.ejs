@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+    <style>
+        a{
+            text-decoration: none;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>hello</h1>
+    <p>variable</p>
+
+    <form action="/login">
+        <input type="submit" value="back to Menu">
+    </form>
+
+    <form action="/search" method="get">
+        <input id="search" type="text" name="search" placeholder="enter what you want to search">
+        <select name="multi" id="">
+            <option value="and">AND</option>
+            <option value="or">OR</option>
+        </select>
+        <input type="submit" value="Go">
+    </form>
+    <br>
+    <br>
+    <table border="2">
+        <tr>
+            <td>^</td>
+            <td>First name</td>
+        </tr>
+        <tr>
+            <td>~</td>
+            <td>Last name</td>
+        </tr>
+        <tr>
+            <td>@</td>
+            <td>Number</td>
+        </tr>
+        <tr>
+            <td>!</td>
+            <td>email</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>city</td>
+        </tr>
+        <tr>
+            <td>#</td>
+            <td>date of birth</td>
+        </tr>
+
+    </table>
+   
+    <table border="1" style="width: 100%; text-align: center;">
+        <tr>
+            <td><a href="/page2?no=1&target=id">id</a></td>
+            <td><a href="/page2?no=1&target=fName">First name</a></td>
+            <td><a href="/page2?no=1&target=lName">Last name</a></td>
+            <td><a href="/page2?no=1&target=sNumber">number</a></td>
+            <td><a href="/page2?no=1&target=sEmail">email</a></td>
+            <td><a href="/page2?no=1&target=scity">city</a></td>
+            <td><a href="/page2?no=1&target=date_of_birth">date of birth</a></td>
+        </tr>
+    <% for(let i=0; i<data.length ; i++){ %>
+        
+        <tr>
+            <td><%= data[i].id %></td>
+            <td><%= data[i].fName %></td>
+            <td><%= data[i].lName %></td>
+            <td><%= data[i].sNumber %></td>
+            <td><%= data[i].sEmail %></td>
+            <td><%= data[i].scity %></td>
+            <% var date=new Date(data[i].date_of_birth) %>
+            <td><%= date.getDate()%>-<%= date.getMonth() %>-<%= date.getFullYear() %></td>
+        </tr>
+    <% } %>
+    </table>
+
+    <table border="1">
+    
+
+            <% 
+                 for(var i=0;i<pages.length;i++){
+                     if(pages[i] == page){
+             %>
+             <td><a style="background-color: lightblue; color: red;" href="#"><%=pages[i]%></a></td>
+             <%} else{ %>
+             <td><a  href="/search?no1=<%=pages[i]%>"><%=pages[i]%></a></td>
+             <%  } } %>
+             </tr>
+
+    
+    </table>
+    </body>
+</html>

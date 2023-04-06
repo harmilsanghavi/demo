@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Enter combo name:- <input type="text" name="combo" id="combo">
+    <p id="demo">submit</p>
+
+    <select name="comboOrignal" id="comboOrignal"> -->
+
+    <!-- </select> -->
+
+    <table>
+        <tr>
+            <td>gender</td>
+            <td><%- dropdownstring.gender %></td>
+        </tr>
+        <tr>
+            <td>subject</td>
+            <td><%- dropdownstring.subject %></td>
+        </tr>
+        <tr>
+            <td>university</td>
+            <td><%- dropdownstring.university %></td>
+        </tr>
+        <tr>
+            <td>collage </td>
+            <td><%- dropdownstring.collage %></td>
+        </tr>
+        <tr>
+            <td>course</td>
+            <td><%- dropdownstring.course %></td>
+        </tr>
+        <tr>
+            <td>location</td>
+            <td><%- dropdownstring.locaton %></td>
+        </tr>
+        <tr>
+            <td>state</td>
+            <td><%- dropdownstring.states %></td>
+        </tr>
+        <tr>
+            <td>relationship</td>
+            <td><%- dropdownstring.relationship_status %></td>
+        </tr>
+        <tr>
+            <td>result</td>
+            <td><%- dropdownstring.result %></td>
+        </tr>
+    </table>
+    <!-- <script>
+        document.getElementById("demo").addEventListener("click",()=>{
+            var val=document.getElementById("combo").value
+            fetch(`/combo?val=${val}`)
+            .then((res)=>res.json())
+            .then((data=>{
+                console.log(data.length)
+                //var temp=""
+                var combo=document.getElementById("comboOrignal")
+                combo.innerHTML=""
+                for(var i=0;i<data.length;i++){
+                    var option=document.createElement("option")
+                    option.value=data[i].key_name
+                    option.innerHTML=data[i].key_name
+                    combo.appendChild(option)
+                }
+            }))
+        })
+    </script> -->
+</body>
+</html>

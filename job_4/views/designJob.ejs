@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body id="demo2">
+    <a href="http://localhost:8014/login">Back To Home</a><br>
+    <form action="/" method="post">
+    <label for="Basic Detail" style="font-size: larger;"><b>Basic Detail</b></label><br><br>
+    <table>
+        <tr>
+            <td><label>First Name:-</label></td>
+            <td><input type="text" name="fname"></td>
+            <td><label>last Name:-</label></td>
+            <td><input type="text" name="lName"></td>
+        </tr>
+        <tr>
+            <td><label>Designation:-</label></td>
+            <td><input type="text" name="designation"></td>
+            <td><label>Address 1:-</label></td>
+            <td><input type="text" name="address1"></td>
+        </tr>
+        <tr>
+            <td><label>Enail:-</label></td>
+            <td><input type="text" name="email"></td>
+            <td><label>Address 2:-</label></td>
+            <td><input type="text" name="address2"></td>
+        </tr>
+        <tr>
+            <td><label>Phone Number:-</label></td>
+            <td><input type="text" name="phoneNumber"></td>
+            <!-- <td><label>City:-</label></td>
+            <td><input type="text" name="city"></td> -->
+        </tr>
+        <tr>
+            <td><label>Gender:-</label></td>
+            <td>
+                <input type="radio" name="gender" value="male">Male
+                <input type="radio" name="gender" value="female">Female
+                <input type="radio" name="gender" value="other">Other
+            </td>
+            <td><label>Zipcode:-</label></td>
+            <td><input type="text" name="zipcode"></td>
+        </tr>
+
+        <tr>
+            <td>city</td>
+            <td>
+                <select name="city" id="city_ajax">
+                    
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select state</td>
+            <td>
+                <select name="state" id="state" onchange="selectone(this)">
+                    <%for(var i=0;i<data.length; i++){ %>
+                        
+                    <option value="<%=data[i].id%>"><%=data[i].state_name %></option>
+                    <%}%>
+                </select>
+            </td>
+            <td>Relationship status:-</td>
+            <td>
+                <select name="relationship" id="relationship">
+                    <%for(var i=0;i<result.length; i++){ %>
+                        <%=result[i].id%>
+                    <option value="<%=result[i].option_key%>"><%=result[i].option_key %></option>
+                    <%}%>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td><input type="date" name="birthday"></td>
+        </tr>
+    </table>
+    <script>
+        
+        async function selectone(data){
+            //console.log("id :-"+data.id)
+            const response= await fetch(`http://localhost:8007/fetch?id=${data.value}`)
+    
+            console.log(response)
+            const data1=await response.json();
+            console.log(data1)
+            length=data1.length;
+            console.log(length)
+            
+            var select=document.getElementById("city_ajax")
+            select.innerHTML=""
+            for(var i=0;i<length;i++){
+                
+                var option=document.createElement("option")
+                option.value=data1[i].city_name
+                option.innerHTML=data1[i].city_name
+                select.appendChild(option)
+        }
+        
+    }
+    </script>
+    <br><br>
+    <label for="eduction Detail"><b>Eduction Detail</b></label>
+    <table id="tbl">
+        <tr>
+            <td>course Name</td>
+            <td><select name="courseName" id="courseName">
+                <%for(var i=0;i<coursename.length; i++){ %>
+                   
+                <option id="<%=coursename[i].option_key%>" value="<%=coursename[i].option_key%>"><%=coursename[i].option_key %></option>
+                <%}%>
+            </select></td>
+            <td>passing year</td>
+            <td><input type="text" name="pyear"></td>
+            <td>board or university</td>
+            <td><input type="text" name="buname"></td>
+            <td>percentage</td>
+            <td><input type="text" name="percentage"></td>
+            <td><a id="butt">Add More filed</a></td>
+            <p id="p" name="p"></p>
+        </tr>
+    </table>
+    <script>
+        var click=1;
+        document.getElementById("butt").addEventListener("click",function(){
+            if(click==1){
+                add1();
+                click++;
+            }else if(click==2){
+                add1();
+                click++;
+            }else if(click==3){
+                add1();
+                click++;
+            }else{
+                alert("no more filed is added")
+            }
+        })
+        document.getElementById("p").value=click
+        function add1(){
+            var array1=['course name','passing year','board or university','percentage']
+            var tbl=document.getElementById("tbl");
+            var ar=['10th','12th','bsc','diploma']
+            var d=0;
+            for(var i=0;i<1;i++){
+                var tr=document.createElement("tr")
+                for(j=0;j<8;j++){
+                    var td=document.createElement("td")
+                    if(j == 3 || j == 5 || j == 7){
+                        var input = document.createElement("input");
+                        if(j==3){
+                            input.name="pyear"
+                        }
+                        if(j==5){
+                            input.name="buname"
+                        }
+                        if(j==7){
+                            input.name="percentage"
+                        }
+                        input.text = "text";
+                        //input.name = array1[j];
+                        //input.placeholder = array1[c];
+                        
+                        // td.appendChild(label);
+                        td.appendChild(input);
+                    }
+                    else if(j==1){
+                        var select=document.createElement("select")
+                        select.name="courseName"
+                        for(var m=0;m<4;m++){
+                            var option=document.createElement("option")
+                            option.value=ar[m]
+                            option.text=ar[m]
+                            select.appendChild(option)
+                        }
+                        td.appendChild(select)
+                    }
+                    else if(j==0 || j==2 || j==4 || j==6){
+                        
+                        var label1 = document.createElement("label");
+                        label1.innerHTML = array1[d];
+                        d++;
+                        td.appendChild(label1);
+                    }
+                    
+                    tr.appendChild(td)
+                }
+                tbl.appendChild(tr)
+            }
+        }
+    </script>
+    
+
+    <br><br>
+    <label><b>work Experience</b></label>
+    <table id="table3">
+        <tr>
+            <td>company Name:-</td>
+            <td><input type="text" name="cName"></td>
+        
+            <td>Designation:-</td>
+            <td><input type="text" name="designation1"></td>
+        
+            <td>Start Date:-</td>
+            <td><input type="date" name="startDate"></td>
+        
+            <td>End Date:-</td>
+            <td><input type="date" name="endDate"></td>
+       
+            <td><input type="button" id="bu" value="click me"></td>
+        </tr>
+    </table>
+    <script>
+        var click2=1;
+        document.getElementById("bu").addEventListener("click",function(){
+            if(click2==1){
+                add();
+                click2++;
+            }else if(click2==2){
+                add();
+                click2++;
+            }else if(click2==3){
+                add();
+                click2++;
+            }else{
+                alert("no more filed is Added");
+            }
+        })
+        function add(){
+            var c=2;
+            var d=0;
+            var array3=['cName','designation1','startDate','endDate']
+            var tbl3=document.getElementById("table3");
+            for(var i=0;i<1;i++){
+                var tr=document.createElement("tr")
+                for(j=0;j<8;j++){
+                    var td=document.createElement("td")
+                    if( j == 1 || j == 3){
+                        var input = document.createElement("input");
+                        input.text = "text";
+                        if(j==1){
+                            input.name="cName"
+                        }
+                        if(j==3){
+                            input.name="designation1"
+                        }
+                        //input.placeholder = array3[i];
+                        // td.appendChild(label);
+                        td.appendChild(input);
+                    }
+                    else if( j == 5 || j == 7){
+                        var input = document.createElement("input");
+                        input.type = "date";
+                        //input.name = array3[c];
+                        if(j==5){
+                            input.name="startDate"
+                        }
+                        if(j==7){
+                            input.name="endDate"
+                        }
+                        c++;
+                        td.appendChild(input);
+                    }
+                    else if ( j == 0 || j == 2 || j == 4||j == 6) {
+                        var label1 = document.createElement("label");
+                        label1.innerHTML = array3[d];
+                        d++;
+                        td.appendChild(label1);
+                    }
+                    tr.appendChild(td)
+                }
+                tbl3.appendChild(tr)
+            }
+        }
+    </script>
+
+    <br><br>
+    <label><b>languages</b></label>
+    <table id="table4">
+        <% for(var i=0;i<language.length; i++) {%>
+            <tr>
+                <td><input type="checkbox" id="<%=language[i].option_key%>" name="language" value="<%=language[i].option_key%>"> 
+                <label for="vehicle1"> <%=language[i].option_key%></label><br>
+                <td><input type="checkbox" id="read" name="read" value="<%=language[i].option_key%>">
+                <label for="vehicle1">read</label><br></td>
+                <td><input type="checkbox" id="write" name="write" value="<%=language[i].option_key%>">
+                <label for="vehicle1">write</label><br></td>
+                <td><input type="checkbox" id="speak" name="speak" value="<%=language[i].option_key%>">
+                <label for="vehicle1">speak</label><br></td>
+            </tr>
+        <%}%>
+        
+    </table>
+
+
+
+    <br><br>
+    <label><b>Technology</b></label>
+    <table id="table5">
+        <% for(var i=0;i<technology.length; i++) {%>
+            <tr>
+                <td><input type="checkbox" id="<%=technology[i].option_key%>" name="technology" value="<%=technology[i].option_key%>"> 
+                <label for="vehicle1"> <%=technology[i].option_key%></label><br>
+                <td><input type="radio" name="rating<%=technology[i].option_key%>" value="beginner">beginner</td>
+                <td><input type="radio" name="rating<%=technology[i].option_key%>" value="moderate">moderate</td>
+                <td><input type="radio" name="rating<%=technology[i].option_key%>" value="expert">expert</td>
+            </tr>
+        <%}%>
+        
+    </table>
+
+    <br><br>
+    <label ><b>Refrences</b></label>
+    <table id="table6">
+        <tr>
+            <td>name</td>
+            <td ><input type="text" name="name"></td>
+            <td>Number</td>
+            <td ><input type="text" name="number"></td>
+            <td>relation</td>
+            <td ><input type="text" name="relation"></td>
+        </tr>
+            <td>name</td>
+            <td ><input type="text" name="name1"></td>
+            <td>Number</td>
+            <td ><input type="text" name="number1"></td>
+            <td>relation</td>
+            <td ><input type="text" name="relation1"></td>
+        </tr>
+    </table>
+
+    <br><br>
+    <label><b>Prefrences</b></label>
+    <table id="table7">
+        <tr>
+            <td>location</td>
+            <td>
+                <select name="location" id="location">
+                    <%for(var i=0;i<location.length; i++){ %>
+                        <%=location[i].id%>
+                    <option value="<%=location[i].option_key%>"><%=location[i].option_key %></option>
+                    <%}%>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>notice period</td>
+            <td><input type="text" name="notice"></td>
+        </tr>
+        <tr>
+            <td>expected ctc</td>
+            <td><input type="text" name="expected"></td>
+        </tr>
+        <tr>
+            <td>current ctc</td>
+            <td><input type="text" name="current"></td>
+        </tr>
+        <tr>     
+            <td>Department</td>             
+            <td>
+                <select name="department" id="Department">
+                    <%for(var i=0;i<department.length; i++){ %>
+                        <%=department[i].id%>
+                    <option value="<%=department[i].option_key%>"><%=department[i].option_key %></option>
+                    <%}%>
+                </select>
+            </td>
+        </tr>
+        <!-- <table> -->
+        <tr>
+            <td><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+
+</html>
